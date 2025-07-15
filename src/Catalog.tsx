@@ -1,0 +1,67 @@
+import { useEffect, useState } from 'react'
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
+type Archi = {
+  title: string;
+  embedUrl: string;
+  description: string
+};
+
+function Catalog() {
+  const [index, setIndex] = useState(0);
+  const [catalog, setCatalog] = useState<Archi[]>([]);
+
+  const next = () => setIndex((i) => (i + 1) % catalog.length);
+  const prev = () =>
+    setIndex((i) => (i - 1 + catalog.length) % catalog.length);
+
+  
+  useEffect(()=>{
+      fetch("/data/archit.json", {
+      headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response)=> response.json())
+  .then((data)=>{ setCatalog(data); console.log(data)})
+  .catch((err) => console.error("Erreur de chargement du JSON :", err));
+  },[])
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
+      <h1 className="text-3xl font-bold mb-6 text-center">
+        Catalogue d’architectures AWS
+      </h1>
+      {
+        (catalog.length!==0) &&
+        <Card className="w-full max-w-4xl">
+          <CardContent className="p-4">
+            <h2 className="text-xl font-semibold mb-2 text-center">
+              {catalog[index]["title"]}
+            </h2>
+            <div className="aspect-video">
+              <iframe
+                className="w-full h-full border border-gray-300 rounded-md"
+                src={catalog[index]["embedUrl"]}
+                allowFullScreen
+                title={catalog[index]["title"]}
+              ></iframe>
+            </div>
+            <div className="mt-4 flex justify-between">
+              <Button onClick={prev} variant="outline">
+                <ArrowLeft className="mr-2 h-4 w-4" /> Précédent
+              </Button>
+              <Button onClick={next} variant="outline">
+                Suivant <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      }
+
+    </div>
+  )
+}
+
+export default Catalog
