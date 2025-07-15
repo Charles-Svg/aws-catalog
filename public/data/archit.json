@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Architecture Serverless avec Lambda et API Gateway",
+    "description" : "",
+    "embedUrl":
+      "https://lucid.app/documents/embedded/0dc434ea-30cf-4af2-8f72-1c6b00532605"
+  },
+  {
+    "title": "Infrastructure ECS avec Fargate et RDS",
+    "description" : "",
+    "embedUrl":
+      "https://lucid.app/documents/embeddedchart/xxxxxx-2"
+  },
+  {
+    "title": "Architecture Data Lake sur AWS avec Glue et Athena",
+    "description" : "",
+    "embedUrl":
+      "https://lucid.app/documents/embeddedchart/xxxxxx-3"
+  }
+]
