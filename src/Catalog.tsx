@@ -1,51 +1,40 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import type { Archi } from './lib/types';
 
-type Archi = {
-  title: string;
-  embedUrl: string;
-  description: string
-};
+type Archis = {
+  architectures : Archi[]
+}
 
-function Catalog() {
-  const [index, setIndex] = useState(0);
-  const [catalog, setCatalog] = useState<Archi[]>([]);
-
-  const next = () => setIndex((i) => (i + 1) % catalog.length);
-  const prev = () =>
-    setIndex((i) => (i - 1 + catalog.length) % catalog.length);
-
+function architectures({architectures} : Archis) {
   
-  useEffect(()=>{
-      fetch("/data/archit.json", {
-      headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((response)=> response.json())
-  .then((data)=>{ setCatalog(data); console.log(data)})
-  .catch((err) => console.error("Erreur de chargement du JSON :", err));
-  },[])
+  const [index, setIndex] = useState(0);
+  const next = () => setIndex((i) => (i + 1) % architectures.length);
+  const prev = () =>
+    setIndex((i) => (i - 1 + architectures.length) % architectures.length);
+
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-6 text-center">
-        Catalogue d’architectures AWS
+        architecturesue d’architectures AWS
       </h1>
       {
-        (catalog.length!==0) &&
+        (architectures.length!==0) &&
         <Card className="w-full max-w-4xl">
           <CardContent className="p-4">
             <h2 className="text-xl font-semibold mb-2 text-center">
-              {catalog[index]["title"]}
+              {architectures[index]["title"]}
             </h2>
             <div className="aspect-video">
               <iframe
                 className="w-full h-full border border-gray-300 rounded-md"
-                src={catalog[index]["embedUrl"]}
+                src={architectures[index]["embedUrl"]}
                 allowFullScreen
-                title={catalog[index]["title"]}
+                title={architectures[index]["title"]}
               ></iframe>
             </div>
             <div className="mt-4 flex justify-between">
@@ -64,4 +53,4 @@ function Catalog() {
   )
 }
 
-export default Catalog
+export default architectures
