@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import type { Archi } from "./lib/types";
 import ArchiTable from "./table/ArchiTable";
 
+import './App.css';
 
 
 export default function App() {

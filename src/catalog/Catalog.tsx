@@ -8,7 +8,7 @@ type Archis = {
   architectures : Archi[]
 }
 
-function architectures({architectures} : Archis) {
+function Catalog({architectures} : Archis) {
   
   const [index, setIndex] = useState(0);
   const next = () => setIndex((i) => (i + 1) % architectures.length);
@@ -20,7 +20,7 @@ function architectures({architectures} : Archis) {
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-6 text-center">
-        architecturesue d’architectures AWS
+        AWS Architectures
       </h1>
       {
         (architectures.length!==0) &&
@@ -53,4 +53,4 @@ function architectures({architectures} : Archis) {
   )
 }
 
-export default architectures
+export default Catalog
