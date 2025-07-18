@@ -3,5 +3,5 @@ export type Archi = {
   embedUrl: string;
   description: string;
   image: string;
-  date: string;
+  lastUpdate: string;
 };

@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -21,9 +20,9 @@ export default function ArchiTable({architectures}: Archis){
         <Table className="mx-4 min-w-[600px]">
             <TableHeader>
                 <TableRow>
-                    <TableHead className="lg:w-1/3 w-1/2 min-w-[300px]"></TableHead>
-                    <TableHead className="w-1/3">Description</TableHead>
-                    <TableHead>Date</TableHead>
+                    <TableHead className="lg:w-1/3 w-1/2 min-w-[300px] p4"></TableHead>
+                    <TableHead className="w-1/3 p4">Description</TableHead>
+                    <TableHead className="p4">Last update</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -36,7 +35,7 @@ export default function ArchiTable({architectures}: Archis){
                             {archi.description}
                         </TableCell>
                         <TableCell className="p-4">
-                            {archi.date}
+                            {archi.lastUpdate}
                         </TableCell>
                     </TableRow>
                 ))}
