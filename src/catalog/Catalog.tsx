@@ -15,7 +15,7 @@ function Catalog({architectures} : Archis) {
   const index = architectures.findIndex((archi) => archi.id === Number(id));
   
   // Ne continue que si l'index est valide
-  if (index === -1) error = true;
+    if(index===-1) error = true;
   
   const archi = architectures[index]
 
@@ -30,7 +30,8 @@ function Catalog({architectures} : Archis) {
   });
 
   return (
-  (architectures.length !== 0) &&
+  <>
+  {(architectures.length !== 0 && !error) &&
    <div {...swipeHandlers} className="flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto">
       <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center">{archi["title"]}</h1>
 
@@ -68,7 +69,13 @@ function Catalog({architectures} : Archis) {
           <h2 className="text-xl font-semibold mb-2">Description</h2>
           <p className="text-gray-700 whitespace-pre-line">{archi["description"]}</p>
         </div>
-    </div>
+    </div>}
+    {(error && 
+      <div className="text-center ">
+        <p className="text-red-500">Erreur sur l'architecture revenez à la page de liste</p>
+        <button onClick={() => navigate("/list")} className="text-blue-500 hover:underline">Retour à la liste</button>
+      </div>)}
+  </>
   )
 }
 

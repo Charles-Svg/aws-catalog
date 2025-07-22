@@ -54,6 +54,7 @@ export default function ArchiTable({architectures}: Archis){
                 key={i}
                 className="border rounded-lg shadow-sm p-4 flex flex-col"
                 style={{ minHeight: '15rem' }}
+                onClick={()=> navigate(`/catalog/${archi.id}`)}
             >
                 <img
                 src={`img/${archi.image}`}
