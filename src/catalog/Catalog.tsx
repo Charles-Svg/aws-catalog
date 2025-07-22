@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Archi } from '../lib/types';
+import { useSwipeable } from "react-swipeable";
 import { useParams,useNavigate } from "react-router-dom";
 
 type Archis = {
@@ -10,22 +11,27 @@ function Catalog({architectures} : Archis) {
   
   const { id } = useParams();
   const navigate = useNavigate();
-
+  let error = false;
   const index = architectures.findIndex((archi) => archi.id === Number(id));
-
+  
   // Ne continue que si l'index est valide
-  if (index === -1) return <p>Architecture not found</p>;
-
+  if (index === -1) error = true;
+  
   const archi = architectures[index]
 
   const next = () =>{if (index < architectures.length - 1) navigate(`/catalog/${architectures[index + 1].id}`)}
   const prev = () => {if (index > 0) navigate(`/catalog/${architectures[index - 1].id}`)}
 
-
+  console.log("index", index, "id", id, "archi", archi);
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: next,
+    onSwipedRight: prev,
+    trackMouse: false,
+  });
 
   return (
-  (architectures.length!==0) &&
-   <div className="flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto">
+  (architectures.length !== 0) &&
+   <div {...swipeHandlers} className="flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto">
       <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center">{archi["title"]}</h1>
 
           {/* Flèche Précédent (desktop uniquement) */}
@@ -62,7 +68,7 @@ function Catalog({architectures} : Archis) {
           <h2 className="text-xl font-semibold mb-2">Description</h2>
           <p className="text-gray-700 whitespace-pre-line">{archi["description"]}</p>
         </div>
-      </div>
+    </div>
   )
 }
 
