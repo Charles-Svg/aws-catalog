@@ -7,6 +7,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import { useNavigate } from "react-router-dom";
+
 import type { Archi } from "@/lib/types"
 
 import"./ArchiTable.css"
@@ -16,7 +18,7 @@ type Archis = {
 }
 
 export default function ArchiTable({architectures}: Archis){
-
+  const navigate = useNavigate();
     return(
     <>
         <h1 className="mt-8 mb-6 text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">List of all Architectures</h1>
@@ -30,7 +32,7 @@ export default function ArchiTable({architectures}: Archis){
                 </TableHeader>
                 <TableBody>
                     {architectures.map((archi,i)=> (
-                        <TableRow key ={i} className="align-middle min-h-[6rem]">
+                        <TableRow key ={i} className="align-middle min-h-[6rem]" onClick={()=> navigate(`/catalog/${archi.id}`)}>
                             <TableCell className="p-4" >
                                 <img src={`img/${archi.image}`} alt={archi.title} className="w-full h-auto object-contain p-2"/>
                             </TableCell>

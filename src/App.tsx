@@ -27,7 +27,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/list" />} />
 
         {/* Page du catalogue */}
-        <Route path="/catalog" element={<Catalog architectures={architectures}/>}/>
+        <Route path="/catalog/:id" element={<Catalog architectures={architectures}/>}/>
 
         <Route path="/list" element={<ArchiTable architectures={architectures}/>}/>
 

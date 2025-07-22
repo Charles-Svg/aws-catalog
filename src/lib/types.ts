@@ -4,4 +4,5 @@ export type Archi = {
   description: string;
   image: string;
   lastUpdate: string;
+  id: number;
 };
