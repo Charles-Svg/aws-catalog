@@ -1,9 +1,6 @@
-import { useState } from 'react'
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Archi } from '../lib/types';
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 type Archis = {
   architectures : Archi[]
@@ -12,26 +9,49 @@ type Archis = {
 function Catalog({architectures} : Archis) {
   
   const { id } = useParams();
-  const idNumber = Number(id);
-  const indexFound = architectures.findIndex(archi => archi.id == idNumber);
-  const initialIndex = indexFound !== -1 ? indexFound : 0;
+  const navigate = useNavigate();
 
-  const [index, setIndex] = useState(initialIndex);
-  const next = () => setIndex((i) => (i + 1) % architectures.length);
-  const prev = () =>
-    setIndex((i) => (i - 1 + architectures.length) % architectures.length);
+  const index = architectures.findIndex((archi) => archi.id === Number(id));
+
+  // Ne continue que si l'index est valide
+  if (index === -1) return <p>Architecture not found</p>;
+
+  const archi = architectures[index]
+
+  const next = () =>{if (index < architectures.length - 1) navigate(`/catalog/${architectures[index + 1].id}`)}
+  const prev = () => {if (index > 0) navigate(`/catalog/${architectures[index - 1].id}`)}
 
 
 
   return (
   (architectures.length!==0) &&
    <div className="flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto">
-      <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center">{architectures[index]["title"]}</h1>
+      <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center">{archi["title"]}</h1>
+
+          {/* Flèche Précédent (desktop uniquement) */}
+          {index > 0 && (
+            <button
+              onClick={prev}
+              className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          )}
+
+          {/* Flèche Suivant (desktop uniquement) */}
+          {index < architectures.length - 1 && (
+            <button
+              onClick={next}
+              className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100"
+            >
+              <ChevronRight size={24} />
+            </button>
+          )}
 
           <div className="w-full h-full aspect-video">
             <iframe
-              src={architectures[index]["embedUrl"]}
-              title={architectures[index]["title"]}
+              src={archi["embedUrl"]}
+              title={archi["title"]}
               allowFullScreen
               className="w-full h-full border border-gray-300 rounded-md"
             />
@@ -40,7 +60,7 @@ function Catalog({architectures} : Archis) {
         {/* Description */}
         <div className="w-full">
           <h2 className="text-xl font-semibold mb-2">Description</h2>
-          <p className="text-gray-700 whitespace-pre-line">{architectures[index]["description"]}</p>
+          <p className="text-gray-700 whitespace-pre-line">{archi["description"]}</p>
         </div>
       </div>
   )
