@@ -15,7 +15,6 @@ function Catalog({architectures} : Archis) {
   const idNumber = Number(id);
   const indexFound = architectures.findIndex(archi => archi.id == idNumber);
   const initialIndex = indexFound !== -1 ? indexFound : 0;
-  console.log("Index trouvé ,id, initialIndex :", id, initialIndex,id,initialIndex);
 
   const [index, setIndex] = useState(initialIndex);
   const next = () => setIndex((i) => (i + 1) % architectures.length);
@@ -25,38 +24,25 @@ function Catalog({architectures} : Archis) {
 
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        AWS Architectures
-      </h1>
-      {
-        (architectures.length!==0) &&
-        <Card className="w-full max-w-4xl">
-          <CardContent className="p-4">
-            <h2 className="text-xl font-semibold mb-2 text-center">
-              {architectures[index]["title"]}
-            </h2>
-            <div className="aspect-video">
-              <iframe
-                className="w-full h-full border border-gray-300 rounded-md"
-                src={architectures[index]["embedUrl"]}
-                allowFullScreen
-                title={architectures[index]["title"]}
-              ></iframe>
-            </div>
-            <div className="mt-4 flex justify-between">
-              <Button onClick={prev} variant="outline">
-                <ArrowLeft className="mr-2 h-4 w-4" /> Précédent
-              </Button>
-              <Button onClick={next} variant="outline">
-                Suivant <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      }
+  (architectures.length!==0) &&
+   <div className="flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto">
+      <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center">{architectures[index]["title"]}</h1>
 
-    </div>
+          <div className="w-full h-full aspect-video">
+            <iframe
+              src={architectures[index]["embedUrl"]}
+              title={architectures[index]["title"]}
+              allowFullScreen
+              className="w-full h-full border border-gray-300 rounded-md"
+            />
+          </div>
+
+        {/* Description */}
+        <div className="w-full">
+          <h2 className="text-xl font-semibold mb-2">Description</h2>
+          <p className="text-gray-700 whitespace-pre-line">{architectures[index]["description"]}</p>
+        </div>
+      </div>
   )
 }
 
