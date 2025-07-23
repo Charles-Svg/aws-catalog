@@ -13,6 +13,7 @@ function Catalog({architectures} : Archis) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isSwiping, setisSwiping] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(null);
 
   let error = false;
   const index = architectures.findIndex((archi) => archi.id === Number(id));
@@ -28,12 +29,14 @@ function Catalog({architectures} : Archis) {
   console.log("index", index, "id", id, "archi", archi);
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
-      next();
+      setSwipeDirection("left");
       setisSwiping(false);
+      next();
     }, 
     onSwipedRight: () => {
-      prev();
+      setSwipeDirection("right");
       setisSwiping(false);
+      prev();
     },
     onSwipeStart : () => setisSwiping(true),
     trackMouse: false,
@@ -43,7 +46,10 @@ function Catalog({architectures} : Archis) {
   <>
   {(architectures.length !== 0 && !error) &&
    <div {...swipeHandlers} className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-500 ease-in-out 
-        ${isSwiping ? 'scale-[1.02] opacity-80 shadow-lg' : ''}`}>
+        ${isSwiping ? 'scale-[1.02] opacity-80 shadow-lg' : ''} 
+        ${swipeDirection == 'left' ? "-translate-x-[15vw]" : ""} 
+        ${swipeDirection == 'right' ? "translate-x-[15vw]" : ""} `}
+        onTransitionEnd={() => {setSwipeDirection(null);}}>
       <h1 className={`text-2xl md:text-4xl font-bold text-gray-800 text-center `}>
       {archi["title"]}
       </h1>
