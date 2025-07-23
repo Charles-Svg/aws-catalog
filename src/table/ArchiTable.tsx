@@ -32,7 +32,7 @@ export default function ArchiTable({architectures}: Archis){
                 </TableHeader>
                 <TableBody>
                     {architectures.map((archi,i)=> (
-                        <TableRow key ={i} className="align-middle min-h-[6rem]" onClick={()=> navigate(`/catalog/${archi.id}`)}>
+                        <TableRow key ={i} className="align-middle min-h-[6rem]" onClick={()=> navigate(`/catalog/${archi.id}`)} style={{ cursor: 'pointer' }}>
                             <TableCell className="p-4" >
                                 <img src={`img/${archi.image}`} alt={archi.title} className="w-full h-auto object-contain p-2"/>
                             </TableCell>
