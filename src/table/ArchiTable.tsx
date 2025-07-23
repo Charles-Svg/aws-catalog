@@ -34,7 +34,7 @@ export default function ArchiTable({architectures}: Archis){
                     {architectures.map((archi,i)=> (
                         <TableRow key ={i} className="align-middle min-h-[6rem]" onClick={()=> navigate(`/catalog/${archi.id}`)} style={{ cursor: 'pointer' }}>
                             <TableCell className="p-4" >
-                                <img src={`img/${archi.image}`} alt={archi.title} className="w-full h-auto object-contain p-2"/>
+                                <img src={`/img/${archi.image}`} alt={archi.title} className="w-full h-auto object-contain p-2"/>
                             </TableCell>
                             <TableCell className="p-4" >
                                 <p className="whitespace-normal break-words line-clamp-8 lg:line-clamp-none text-left">{archi.description}</p>
@@ -57,7 +57,7 @@ export default function ArchiTable({architectures}: Archis){
                 onClick={()=> navigate(`/catalog/${archi.id}`)}
             >
                 <img
-                src={`img/${archi.image}`}
+                src={`/img/${archi.image}`}
                 alt={archi.title}
                 className="w-full h-40 object-contain mb-4"
                 />
