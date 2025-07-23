@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Archi } from '../lib/types';
 import { useSwipeable } from "react-swipeable";
 import { useParams,useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type Archis = {
   architectures : Archi[]
@@ -11,6 +12,8 @@ function Catalog({architectures} : Archis) {
   
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isSwiping, setisSwiping] = useState(false);
+
   let error = false;
   const index = architectures.findIndex((archi) => archi.id === Number(id));
   
@@ -24,17 +27,26 @@ function Catalog({architectures} : Archis) {
 
   console.log("index", index, "id", id, "archi", archi);
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: next,
-    onSwipedRight: prev,
+    onSwipedLeft: () => {
+      next();
+      setisSwiping(false);
+    }, 
+    onSwipedRight: () => {
+      prev();
+      setisSwiping(false);
+    },
+    onSwipeStart : () => setisSwiping(true),
     trackMouse: false,
   });
 
   return (
   <>
   {(architectures.length !== 0 && !error) &&
-   <div {...swipeHandlers} className="flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto">
-      <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center">{archi["title"]}</h1>
-
+   <div {...swipeHandlers} className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-500 ease-in-out 
+        ${isSwiping ? 'scale-[1.02] opacity-80 shadow-lg' : ''}`}>
+      <h1 className={`text-2xl md:text-4xl font-bold text-gray-800 text-center `}>
+      {archi["title"]}
+      </h1>
           {/* Flèche Précédent (desktop uniquement) */}
           {index > 0 && (
             <button
@@ -64,6 +76,9 @@ function Catalog({architectures} : Archis) {
             />
           </div>
 
+          <div className="text-center text-sm text-gray-500 animate-pulse block lg:hidden">
+            Swipe left or right to navigate
+          </div>
         {/* Description */}
         <div className="w-full">
           <h2 className="text-xl font-semibold mb-2">Description</h2>
