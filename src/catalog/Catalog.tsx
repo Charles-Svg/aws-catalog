@@ -45,7 +45,7 @@ function Catalog({architectures} : Archis) {
   return (
   <>
   {(architectures.length !== 0 && !error) &&
-   <div {...swipeHandlers} className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-500 ease-in-out 
+   <div {...swipeHandlers} className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-200 ease-in-out 
         ${isSwiping ? 'scale-[1.02] opacity-80 shadow-lg' : ''} 
         ${swipeDirection == 'left' ? "-translate-x-[15vw]" : ""} 
         ${swipeDirection == 'right' ? "translate-x-[15vw]" : ""} `}
