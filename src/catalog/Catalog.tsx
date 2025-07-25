@@ -3,6 +3,7 @@ import type { Archi } from '../lib/types';
 import { useSwipeable } from "react-swipeable";
 import { useParams,useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 type Archis = {
   architectures : Archi[]
@@ -44,12 +45,21 @@ function Catalog({architectures} : Archis) {
 
   return (
   <>
+    <Button
+        variant="ghost"
+        onClick={() => navigate("/list")}
+        className="flex items-center space-x-1 z-10 lg:absolute lg:top-4 lg:left-4"
+      >
+        <ChevronLeft className="h-4 w-4 " />
+        <span className="text-sm">Back to list</span>
+    </Button>
   {(architectures.length !== 0 && !error) &&
-   <div {...swipeHandlers} className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-200 ease-in-out 
+   <div {...swipeHandlers} className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-200 ease-in-out lg:pt-12 
         ${isSwiping ? 'scale-[1.02] opacity-80 shadow-lg' : ''} 
         ${swipeDirection == 'left' ? "-translate-x-[15vw]" : ""} 
         ${swipeDirection == 'right' ? "translate-x-[15vw]" : ""} `}
         onTransitionEnd={() => {setSwipeDirection(null);}}>
+
       <h1 className={`text-2xl md:text-4xl font-bold text-gray-800 text-center `}>
       {archi["title"]}
       </h1>
