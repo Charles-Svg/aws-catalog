@@ -4,6 +4,7 @@ import { useSwipeable } from "react-swipeable";
 import { useParams,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import MarkdownContent from "../markdownContent/MarkdownContent"
 
 type Archis = {
   architectures : Archi[]
@@ -98,7 +99,7 @@ function Catalog({architectures} : Archis) {
         {/* Description */}
         <div className="w-full">
           <h2 className="text-xl font-semibold mb-2">Description</h2>
-          <p className="text-gray-700 whitespace-pre-line">{archi["description"]}</p>
+          <div className="text-gray-700 whitespace-normal text-left"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
         </div>
     </div>}
     {(error && 

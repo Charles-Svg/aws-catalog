@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 import type { Archi } from "@/lib/types"
 
+import MarkdownContent from "../markdownContent/MarkdownContent"
+
 import"./ArchiTable.css"
 
 type Archis = {
@@ -37,7 +39,7 @@ export default function ArchiTable({architectures}: Archis){
                                 <img src={`/img/${archi.image}`} alt={archi.title} className="w-full h-auto object-contain p-2"/>
                             </TableCell>
                             <TableCell className="p-4" >
-                                <p className="whitespace-normal break-words line-clamp-8 lg:line-clamp-none text-left">{archi.description}</p>
+                                <div className="whitespace-normal break-words line-clamp-8 lg:line-clamp-none text-left"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
                             </TableCell>
                             <TableCell className="p-4 text-center align-middle">
                                 {archi.lastUpdate}
@@ -62,7 +64,7 @@ export default function ArchiTable({architectures}: Archis){
                 className="w-full h-40 object-contain mb-4"
                 />
                 <h3 className="font-semibold mb-2">{archi.title}</h3>
-                <p className="text-left line-clamp-3 mb-4">{archi.description}</p>
+                <div className="text-left line-clamp-3 mb-4"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
                 <div className="mt-auto text-sm text-gray-600 text-right">
                 Dernière mise à jour : {archi.lastUpdate}
                 </div>

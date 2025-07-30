@@ -16,7 +16,9 @@ export default function App() {
       "Content-Type": "application/json",
     },
   }).then((response)=> response.json())
-  .then((data)=>{ setArchitectures(data); console.log(data)})
+  .then((data)=>{ 
+    setArchitectures(data); 
+    console.log(data)})
   .catch((err) => console.error("Erreur de chargement du JSON :", err));
   },[])
 
