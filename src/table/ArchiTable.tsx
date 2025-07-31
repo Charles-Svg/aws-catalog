@@ -66,7 +66,7 @@ export default function ArchiTable({architectures}: Archis){
                 <h3 className="font-semibold mb-2">{archi.title}</h3>
                 <div className="text-left line-clamp-3 mb-4"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
                 <div className="mt-auto text-sm text-gray-600 text-right">
-                Dernière mise à jour : {archi.lastUpdate}
+                Last Update : {archi.lastUpdate}
                 </div>
             </div>
             ))}
