@@ -99,7 +99,7 @@ function Catalog({architectures} : Archis) {
         {/* Description */}
         <div className="w-full">
           <h2 className="text-xl font-semibold mb-2">Description</h2>
-          <div className="text-gray-700 whitespace-normal text-left"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
+          <div className="text-gray-700 whitespace-pre-line text-left leading-[1.2]"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
         </div>
     </div>}
     {(error && 
