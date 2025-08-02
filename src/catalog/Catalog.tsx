@@ -56,7 +56,7 @@ function Catalog({architectures} : Archis) {
         <span className="text-sm">Back to list</span>
     </Button>
   {(architectures.length !== 0 && !error) &&
-   <div {...swipeHandlers} className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-200 ease-in-out lg:pt-12 
+   <div className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-200 ease-in-out lg:pt-12 
         ${isSwiping ? 'scale-[1.02] opacity-80 shadow-lg' : ''} 
         ${swipeDirection == 'left' ? "-translate-x-[15vw]" : ""} 
         ${swipeDirection == 'right' ? "translate-x-[15vw]" : ""} `}
@@ -105,7 +105,7 @@ function Catalog({architectures} : Archis) {
             Swipe left or right to navigate
           </div>
         {/* Description */}
-        <div className="w-full">
+        <div {...swipeHandlers} className="w-full">
           <h2 className="text-xl font-semibold mb-4">Description</h2>
           <div className="text-gray-700 whitespace-pre-line text-left leading-[1.2]"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
         </div>

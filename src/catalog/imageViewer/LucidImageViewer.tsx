@@ -61,10 +61,14 @@ export default function LucidImageViewer({ src, title }: { src: string, title: s
   const handleMouseUp = () => setStartPos(null)
 
   const toggleFullscreen = async () => {
-    if (!document.fullscreenElement) {
-      await containerRef.current?.requestFullscreen()
-    } else {
-      await document.exitFullscreen()
+    try {
+        if (!document.fullscreenElement && containerRef.current?.requestFullscreen) {
+        await containerRef.current.requestFullscreen()
+        } else if (document.exitFullscreen) {
+        await document.exitFullscreen()
+        }
+    } catch (error) {
+        console.error("Fullscreen error:", error)
     }
   }
 
@@ -103,12 +107,28 @@ useEffect(() => {
       setStartPos({ x: e.touches[0].clientX, y: e.touches[0].clientY })
       setOffset(prev => ({ x: prev.x + dx, y: prev.y + dy }))
     } else if (e.touches.length === 2 && lastTouchDist.current !== null) {
-      e.preventDefault()
-      const newDist = getDistance(e.touches[0], e.touches[1])
-      const delta = (newDist - lastTouchDist.current) * 0.005
-      const newScale = Math.max(0.1, Math.min(5, scale + delta))
-      setScale(newScale)
-      lastTouchDist.current = newDist
+        e.preventDefault()
+        const newDist = getDistance(e.touches[0], e.touches[1])
+        const delta = (newDist - lastTouchDist.current) * 0.005
+        const newScale = Math.max(0.1, Math.min(5, scale + delta))
+
+        // 💡 Centre du pinch
+        const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2
+        const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2
+
+        const rect = containerRef.current?.getBoundingClientRect()
+        if (!rect) return
+
+        const offsetX = centerX - rect.left
+        const offsetY = centerY - rect.top
+
+        const scaleChange = newScale / scale
+        const newOffsetX = (offset.x - offsetX) * scaleChange + offsetX
+        const newOffsetY = (offset.y - offsetY) * scaleChange + offsetY
+
+        setScale(newScale)
+        setOffset({ x: newOffsetX, y: newOffsetY })
+        lastTouchDist.current = newDist
     }
   }
 
