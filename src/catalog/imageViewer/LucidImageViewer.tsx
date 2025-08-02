@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { Maximize2, Minimize2 } from 'lucide-react'
+import { Maximize2, Minimize2, RefreshCw } from 'lucide-react'
 
 export default function LucidImageViewer({ src, title }: { src: string, title: string }) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -13,6 +13,11 @@ export default function LucidImageViewer({ src, title }: { src: string, title: s
   const [isFullscreen, setIsFullscreen] = useState(false)
   const lastTouchDist = useRef<number | null>(null)
 
+
+  const resetView = () => {
+  setScale(1)
+  setOffset({ x: 0, y: 0 })
+}
   // ✋ Empêche le scroll de la page pendant zoom
   useEffect(() => {
     const preventPageScroll = (e: WheelEvent) => {
@@ -77,9 +82,7 @@ useEffect(() => {
     const isNowFullscreen = !!document.fullscreenElement
     setIsFullscreen(isNowFullscreen)
 
-    // 🔄 Reset zoom et position à chaque transition
-    setScale(1)
-    setOffset({ x: 0, y: 0 })
+    resetView()
   }
 
   document.addEventListener('fullscreenchange', handleFullscreenChange)
@@ -172,6 +175,15 @@ useEffect(() => {
       </div>
 
       <div className="absolute top-2 right-2 z-10">
+        <Button
+          onClick={resetView}
+          variant="ghost"
+          size="icon"
+          className="inline-block"
+          title="Reset view"
+        >
+          <RefreshCw className="w-5 h-5" />
+        </Button>
         <Button variant="ghost" size="icon" onClick={toggleFullscreen} className='hidden md:inline-block'>
           {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
         </Button>
