@@ -172,7 +172,7 @@ useEffect(() => {
       </div>
 
       <div className="absolute top-2 right-2 z-10">
-        <Button variant="ghost" size="icon" onClick={toggleFullscreen}>
+        <Button variant="ghost" size="icon" onClick={toggleFullscreen} className='hidden md:inline-block'>
           {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
         </Button>
       </div>

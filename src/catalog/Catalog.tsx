@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import MarkdownContent from "../markdownContent/MarkdownContent"
 import LucidImageViewer from "./imageViewer/LucidImageViewer";
+import { MobileRotateNotice } from "./mobileRotateNotice/MobileRotateNotice";
 
 type Archis = {
   architectures : Archi[]
@@ -68,8 +69,8 @@ function Catalog({architectures} : Archis) {
           {/* Flèche Précédent (desktop uniquement) */}
           {index > 0 && (
             <button
-              onClick={prev}
-              className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100"
+            onClick={prev}
+            className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100"
             >
               <ChevronLeft size={24} />
             </button>
@@ -78,8 +79,8 @@ function Catalog({architectures} : Archis) {
           {/* Flèche Suivant (desktop uniquement) */}
           {index < architectures.length - 1 && (
             <button
-              onClick={next}
-              className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100"
+            onClick={next}
+            className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100"
             >
               <ChevronRight size={24} />
             </button>
@@ -88,13 +89,13 @@ function Catalog({architectures} : Archis) {
           
           {/* Iframe integration is blocked by cookies on most browsers...
           <div className="w-full h-full aspect-video">
-            <iframe
-              src={archi["embedUrl"]}
-              title={archi["title"]}
-              allowFullScreen
-              className="w-full h-full border border-gray-300 rounded-md"
-              id={archi["lucidId"]}
-            />
+          <iframe
+          src={archi["embedUrl"]}
+          title={archi["title"]}
+          allowFullScreen
+          className="w-full h-full border border-gray-300 rounded-md"
+          id={archi["lucidId"]}
+          />
           </div> */}
           <LucidImageViewer
             src={`/img/${archi["image"]}`}
@@ -106,9 +107,11 @@ function Catalog({architectures} : Archis) {
           </div>
         {/* Description */}
         <div {...swipeHandlers} className="w-full">
-          <h2 className="text-xl font-semibold mb-4">Description</h2>
+          <h2 className="text-xl font-semibold" style={{marginBottom: "2rem"}}>Description</h2>
           <div className="text-gray-700 whitespace-pre-line text-left leading-[1.2]"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
         </div>
+
+    <MobileRotateNotice />
     </div>}
     {(error && 
       <div className="text-center ">
