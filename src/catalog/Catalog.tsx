@@ -85,7 +85,9 @@ function Catalog({architectures} : Archis) {
             </button>
           )}
 
-          {/* <div className="w-full h-full aspect-video">
+          
+          {/* Iframe integration is blocked by cookies on most browsers...
+          <div className="w-full h-full aspect-video">
             <iframe
               src={archi["embedUrl"]}
               title={archi["title"]}
@@ -95,8 +97,8 @@ function Catalog({architectures} : Archis) {
             />
           </div> */}
           <LucidImageViewer
-            src="/img/thumbnail.png"
-            title="Architecture Système"
+            src={`/img/${archi["image"]}`}
+            title={archi["title"]}
           />
 
           <div className="text-center text-sm text-gray-500 animate-pulse block lg:hidden">
