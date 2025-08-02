@@ -4,4 +4,5 @@ export type Archi = {
   image: string;
   lastUpdate: string;
   id: number;
+  lucidId: string;
 };

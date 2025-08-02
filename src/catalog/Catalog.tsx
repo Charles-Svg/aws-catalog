@@ -5,6 +5,7 @@ import { useParams,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import MarkdownContent from "../markdownContent/MarkdownContent"
+import LucidImageViewer from "./imageViewer/LucidImageViewer";
 
 type Archis = {
   architectures : Archi[]
@@ -84,21 +85,26 @@ function Catalog({architectures} : Archis) {
             </button>
           )}
 
-          <div className="w-full h-full aspect-video">
+          {/* <div className="w-full h-full aspect-video">
             <iframe
               src={archi["embedUrl"]}
               title={archi["title"]}
               allowFullScreen
               className="w-full h-full border border-gray-300 rounded-md"
+              id={archi["lucidId"]}
             />
-          </div>
+          </div> */}
+          <LucidImageViewer
+            src="/img/thumbnail.png"
+            title="Architecture Système"
+          />
 
           <div className="text-center text-sm text-gray-500 animate-pulse block lg:hidden">
             Swipe left or right to navigate
           </div>
         {/* Description */}
         <div className="w-full">
-          <h2 className="text-xl font-semibold mb-2">Description</h2>
+          <h2 className="text-xl font-semibold mb-4">Description</h2>
           <div className="text-gray-700 whitespace-pre-line text-left leading-[1.2]"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
         </div>
     </div>}
