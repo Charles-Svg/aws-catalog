@@ -4,5 +4,11 @@
     "image" : "archi_1.png",
     "lastUpdate" : "31/07/2025",
     "id" : 1
+  },
+    {
+    "title": "charles-sauvagnac Website Architecture",
+    "image" : "archi_2.png",
+    "lastUpdate" : "03/08/2025",
+    "id" : 2
   }
 ]
