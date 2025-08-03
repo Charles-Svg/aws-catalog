@@ -18,6 +18,36 @@ function Catalog({architectures} : Archis) {
   const navigate = useNavigate();
   const [isSwiping, setisSwiping] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(null);
+  const [translateX, setTranslateX] = useState(0);
+
+  const swipeHandlers = useSwipeable({
+    onSwiping: (eventData) => {
+      if (Math.abs(eventData.deltaX) > Math.abs(eventData.deltaY)) {
+        setTranslateX(eventData.deltaX);
+      }
+    },
+    onSwiped: (eventData) => {
+      const threshold = 150; // px à franchir pour déclencher la navigation
+      if (eventData.deltaX < -threshold) {
+        next();
+      } else if (eventData.deltaX > threshold) {
+        prev();
+      }
+      setTranslateX(0); // reset après swipe
+    },
+    onSwipedLeft: () => {
+      setSwipeDirection("left");
+      setisSwiping(false);
+      // next();
+    }, 
+    onSwipedRight: () => {
+      setSwipeDirection("right");
+      setisSwiping(false);
+      // prev();
+    },
+    onSwipeStart : () => setisSwiping(true),
+    trackMouse: false,
+  });
 
   let error = false;
   const index = architectures.findIndex((archi) => archi.id === Number(id));
@@ -31,20 +61,7 @@ function Catalog({architectures} : Archis) {
   const prev = () => {if (index > 0) navigate(`/catalog/${architectures[index - 1].id}`)}
 
   console.log("index", index, "id", id, "archi", archi);
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => {
-      setSwipeDirection("left");
-      setisSwiping(false);
-      next();
-    }, 
-    onSwipedRight: () => {
-      setSwipeDirection("right");
-      setisSwiping(false);
-      prev();
-    },
-    onSwipeStart : () => setisSwiping(true),
-    trackMouse: false,
-  });
+  
 
   return (
   <>
@@ -57,11 +74,17 @@ function Catalog({architectures} : Archis) {
         <span className="text-sm">Back to list</span>
     </Button>
   {(architectures.length !== 0 && !error) &&
-   <div className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl mx-auto transition-transform duration-200 ease-in-out lg:pt-12 
-        ${isSwiping ? 'scale-[1.02] opacity-80 shadow-lg' : ''} 
-        ${swipeDirection == 'left' ? "-translate-x-[15vw]" : ""} 
-        ${swipeDirection == 'right' ? "translate-x-[15vw]" : ""} `}
+   <div className={`flex flex-col gap-6 p-4 md:p-8 max-w-5xl lg:pt-12mx-auto 
+    transition-transform transition-opacity duration-200 ease-in-out transform  
+      ${isSwiping ? 'scale-[1.02] shadow-lg' : ''} 
+    `}
+        style= {{
+          transform: `translateX(${translateX}px)`,
+          transition: swipeDirection ? 'transform 0.3s ease-out' : undefined,
+          opacity: 1 - Math.min(Math.abs(translateX) / 300, 0.5),
+        }}
         onTransitionEnd={() => {setSwipeDirection(null);}}>
+
 
       <h1 className={`text-2xl md:text-4xl font-bold text-gray-800 text-center `}>
       {archi["title"]}
@@ -101,16 +124,16 @@ function Catalog({architectures} : Archis) {
             src={`/img/${archi["image"]}`}
             title={archi["title"]}
           />
-
+        <div {...swipeHandlers}>
           <div className="text-center text-sm text-gray-500 animate-pulse block lg:hidden">
-            Swipe left or right to navigate
+             ⬅️ Swipe left or right to navigate ➡️
           </div>
-        {/* Description */}
-        <div {...swipeHandlers} className="w-full">
-          <h2 className="text-xl font-semibold" style={{marginBottom: "2rem"}}>Description</h2>
-          <div className="text-gray-700 whitespace-pre-line text-left leading-[1.2]"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
+          {/* Description */}
+          <div  className="w-full">
+            <h2 className="text-xl font-semibold" style={{marginBottom: "1rem", marginTop: "1rem"}}>Description</h2>
+            <div className="text-gray-700 whitespace-pre-line text-left leading-[1.2]"><MarkdownContent fichier={`description_${archi["id"]}`}/></div>
+          </div>
         </div>
-
     <MobileRotateNotice />
     </div>}
     {(error && 
