@@ -23,7 +23,7 @@ export default function ArchiTable({architectures}: Archis){
   const navigate = useNavigate();
     return(
     <>
-        <h1 className="mt-8 mb-6 text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">List of all Architectures</h1>
+        <h2 className="mt-8 mb-6 text-xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">List of designed architectures</h2>
             <Table className="mx-4 min-w-[600px] hidden md:table">
                 <TableHeader>
                     <TableRow>
