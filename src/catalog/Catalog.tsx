@@ -68,7 +68,7 @@ function Catalog({architectures} : Archis) {
   <Button
       variant="ghost"
       onClick={() => navigate("/list")}
-      className="flex items-center space-x-1 z-10 absolute top-4 left-4"
+      className="flex items-center space-x-1 z-10 static md:absolute top-4 left-4"
     >
       <ChevronLeft className="h-4 w-4 " />
       <span className="text-sm">Back to list</span>
