@@ -6,9 +6,15 @@
     "id" : 1
   },
     {
-    "title": "charles-sauvagnac Website Architecture",
+    "title": "charles-sauvagnac website architecture",
     "image" : "archi_2.png",
     "lastUpdate" : "03/08/2025",
     "id" : 2
+  },
+  {
+    "title": "Serverless multi-webiste CMS",
+    "image" : "archi_3.png",
+    "lastUpdate" : "31/08/2025",
+    "id" : 3
   }
 ]

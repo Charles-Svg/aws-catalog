@@ -11,7 +11,7 @@ The architecture leverages fully managed AWS services to reduce operational over
 
 **Improvement Path:**
 
- Backend workloads can later be migrated to Amazon ECS (Fargate) for better control over containerized deployments.
+**Improved Control** -  Backend workloads can later be migrated to Amazon ECS (Fargate) for better control over containerized deployments.
  
- Based on usage metrics, the database layer can evolve from serverless to provisioned Aurora instances to optimize cost-performance.
+**Cost optimization** - Based on usage metrics, the database layer can evolve from serverless to provisioned Aurora instances to optimize cost-performance.
 

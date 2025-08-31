@@ -5,8 +5,6 @@ The front end is developped in React with Vite. The build files are uploaded in 
 The domain has been bought with **Route53** and SSL certificates are provisioned and managed by **AWS Certificate Manager (ACM)** via amplify hosting.
 
 - **Improvement Path:**
-- Enable CD by connecting the GitHub repository directly to Amplify Hosting. This would automate the build and deployment process via AWS CodeBuild.
-- We could also use Github Actions to build the project, upload artifacts to the source  S3 bucket and trigger the deployment via Amplify CLI.
-- For future backend needs we would use the serverless approach with Lambda and DynamoDB. 
+- **Adding CI/CD** - Enable CD by connecting the GitHub repository directly to Amplify Hosting. This would automate the build and deployment process via AWS CodeBuild. We could also use Github Actions to build the project, upload artifacts to the source  S3 bucket and trigger the deployment via Amplify CLI.
+- **Adding backend** - For future backend needs we would use the serverless approach with Lambda and DynamoDB. 
 *This could allow to implement a comment section directly on the architectures !*  
-- For Security a WAF must be added 
